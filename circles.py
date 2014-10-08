@@ -5,7 +5,6 @@ def ave_color(xx, yy, n, img):
   count = 0
   for x in range(xx, xx+n):
     for y in range(yy, yy+n):
-      #print( x, y)
       count += 1
       p = img.getpixel( (x,y) )
       r+= p[0]
@@ -16,7 +15,6 @@ def ave_color(xx, yy, n, img):
   b /= count
   v = (r + g + b)/3
   c = (r, g, b, v)
-  #print( c )
   return c
   
 
@@ -32,9 +30,8 @@ def scan(img, step, scale):
   image = Image.new('RGBA', (width*scale, height*scale))
   draw = ImageDraw.Draw(image)
   def circle(x, y, r):
-    draw.ellipse((scale*(x-r), scale*(y-r), scale*(x+r), scale*(y+r) ), fill = "black")
+    draw.ellipse((scale*(x-r), scale*(y-r), scale*(x+r), scale*(y+r) ), fill = 'black')
 
-  #better way to handle 
   for x in range(0, width , block):
     for y in range(0, height , block):
       darkness = 1 - ave_color(x, y, block, img)[3]/255
@@ -45,7 +42,5 @@ def scan(img, step, scale):
 
   image.save('c.png')
 
-im = Image.open( "c.jpg" )
-
-
+im = Image.open( 'c.jpg' )
 scan(im, 150, 5)
