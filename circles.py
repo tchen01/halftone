@@ -27,7 +27,7 @@ def scan(img, step, scale):
   print( w, h, width, height )
   img = img.crop((0, 0, width, height))
   
-  image = Image.new('RGBA', (width*scale, height*scale))
+  image = Image.new('RGB', (width*scale, height*scale), "white")
   draw = ImageDraw.Draw(image)
   def circle(x, y, r):
     draw.ellipse((scale*(x-r), scale*(y-r), scale*(x+r), scale*(y+r) ), fill = 'black')
@@ -35,12 +35,12 @@ def scan(img, step, scale):
   for x in range(0, width , block):
     for y in range(0, height , block):
       darkness = 1 - ave_color(x, y, block, img)[3]/255
-      radius = block / 2 * darkness * 1.25
+      radius = block / 2 * darkness * 1.1
       print(x, y, radius)
       
       circle( x+block/2, y+block/2, radius)
 
-  image.save('c.png')
+  image.save('out.png')
 
-im = Image.open( 'c.jpg' )
-scan(im, 150, 5)
+im = Image.open( 'b.jpg' )
+scan(im, 180, 6)
